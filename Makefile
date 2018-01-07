@@ -54,14 +54,14 @@ OBJS = $(SRCS:.c=.o)
 
 .PHONY: lib proj
 
-all: proj
+all: $(PROJ_NAME).elf
 
-lib:
+lib: $(STD_PERIPH_LIB)/libstm32f0.a
+
+$(STD_PERIPH_LIB)/libstm32f0.a:
 	$(MAKE) -C $(STD_PERIPH_LIB)
 
-proj: 	$(PROJ_NAME).elf
-
-$(PROJ_NAME).elf: $(SRCS) | lib
+$(PROJ_NAME).elf: $(SRCS) $(STD_PERIPH_LIB)/libstm32f0.a
 	$(CC) $(CFLAGS) $^ -o $@ -L$(STD_PERIPH_LIB) -lstm32f0 -L$(LDSCRIPT_INC) -Tstm32f0.ld
 	$(OBJCOPY) -O ihex $(PROJ_NAME).elf $(PROJ_NAME).hex
 	$(OBJCOPY) -O binary $(PROJ_NAME).elf $(PROJ_NAME).bin
