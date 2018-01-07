@@ -80,5 +80,5 @@ clean:
 	rm -f $(PROJ_NAME).map
 	rm -f $(PROJ_NAME).lst
 
-reallyclean: clean
+distclean reallyclean: clean
 	$(MAKE) -C $(STD_PERIPH_LIB) clean
